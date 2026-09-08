@@ -4,6 +4,8 @@ import { print } from './printer'
 export interface EvalHooks {
   /** Called every time a user-defined closure is applied. */
   onApply?: (closure: Closure) => void
+  /** Called after `define` binds a name. */
+  onDefine?: (name: string, value: Value) => void
 }
 
 const S = {
@@ -106,6 +108,7 @@ export function evaluate(x: Value, env: Env, hooks: EvalHooks = {}): Value {
             const proc = makeClosure(target.slice(1), x.slice(2), env, 'define')
             proc.name = name
             env.define(name, proc)
+            hooks.onDefine?.(name, proc)
             return undefined
           }
           arity(x, 1, 2)
@@ -113,6 +116,7 @@ export function evaluate(x: Value, env: Env, hooks: EvalHooks = {}): Value {
           const value = x.length === 3 ? evaluate(x[2], env, hooks) : undefined
           if (value instanceof Closure && value.name === null) value.name = name
           env.define(name, value)
+          hooks.onDefine?.(name, value)
           return undefined
         }
 
