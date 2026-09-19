@@ -4,7 +4,7 @@ A tiny Scheme-flavored Lisp with lexical closures, proper tail calls, and a brow
 
 ## Why
 
-Most toy Lisps hide the environment model. This one makes it visible: every closure can be inspected as a chain of frames, and tail calls really do run in constant stack space via a trampoline.
+Most toy Lisps hide the environment model. This one makes it visible: every closure can be inspected as a chain of frames, and tail calls run in constant stack space via a trampoline.
 
 ## Features
 
@@ -16,9 +16,16 @@ Most toy Lisps hide the environment model. This one makes it visible: every clos
 - Inspector: nested frame cards for closures
 - Examples: factorial, fibonacci, Y-combinator, closure counter, quicksort
 
-## Status
+## Run
 
-See `PLAN.md` for architecture and remaining milestones. Core interpreter + REPL scaffolding are in place.
+```bash
+npm install
+npm run dev
+```
+
+```bash
+npm test
+```
 
 ## License
 
